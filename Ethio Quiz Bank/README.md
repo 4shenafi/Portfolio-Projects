@@ -8,3 +8,5 @@ Welcome to the **Telegram Quiz Bot** project! 🎉 This bot is designed to provi
 - **Instant Feedback**: Get explanations and correct answers right after you answer.
 
 Explore and test your knowledge with this easy-to-use bot! 📘💡
+
+link [https://t.me/ethioquizbankBot]
