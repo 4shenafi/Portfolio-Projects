@@ -1,0 +1,8 @@
+/venv
+ecommerce_platform/ecommerce_platform/__pycache__
+ecommerce_platform/core/__pycache__
+ecommerce_platform/orders/__pycache__
+ecommerce_platform/products/__pycache__
+ecommerce_platform/users/__pycache__
+ecommerce_platform/vendors/__pycache__
+ecommerce_platform/.env

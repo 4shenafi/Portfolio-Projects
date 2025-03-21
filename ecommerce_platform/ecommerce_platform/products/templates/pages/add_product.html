@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Luxury eCommerce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1C1C1C, #0A0A0A);
+            color: #F5F5F5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #D4AF37;
+            text-align: center;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Form Styling */
+        .add-product-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group label {
+            color: #D4AF37;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #F5F5F5;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            transform: scale(1.02);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Image Upload */
+        .image-upload {
+            position: relative;
+            text-align: center;
+        }
+
+        .image-upload input[type="file"] {
+            display: none;
+        }
+
+        .image-upload-label {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #D4AF37;
+            padding: 12px 20px;
+            border-radius: 25px;
+            color: #D4AF37;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload-label:hover {
+            background: #D4AF37;
+            color: #0A0A0A;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .image-preview {
+            margin-top: 15px;
+            max-width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            display: none;
+            object-fit: cover;
+        }
+
+        /* Buttons */
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .add-btn {
+            background: linear-gradient(45deg, #D4AF37, #e6c84d);
+            border: none;
+            padding: 12px 30px;
+            color: #0A0A0A;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+        }
+
+        .cancel-btn {
+            background: transparent;
+            border: 1px solid #D4AF37;
+            padding: 12px 20px;
+            color: #D4AF37;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 8px;
+            color: #F5F5F5;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23D4AF37" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 12px top 50%;
+        }
+
+        .form-group select:focus {
+            border-color: #D4AF37;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            transform: scale(1.02);
+        }
+
+        /* Style for dropdown options */
+        .form-group select option {
+            background: #1C1C1C; /* Dark background for options */
+            color: #F5F5F5;     /* White text for options */
+            padding: 10px;      /* Better spacing */
+        }
+
+        /* Validation Feedback */
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+                margin: 20px;
+            }
+            .form-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Product</h2>
+        <form class="add-product-form" id="addProductForm" method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            {{ csrf_token }} <!-- Proper syntax for CSRF token -->
+
+            <!-- Image Upload -->
+            <div class="form-group image-upload">
+                <label>Product Image</label>
+                <label for="productImage" class="image-upload-label">📷 Upload Image</label>
+                <input type="file" id="productImage" name="image" accept="image/*">
+                <img id="imagePreview" class="image-preview" alt="Image Preview">
+            </div>
+
+            <!-- Product Name -->
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" id="productName" name="name" placeholder="Enter Product Name" required>
+                <span class="error-message" id="nameError">Product name is required</span>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label>Category</label>
+                <select id="productCategory" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="accessories">Accessories</option>
+                    <option value="jewelry">Jewelry</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="home">Home Decor</option>
+                </select>
+                <span class="error-message" id="categoryError">Please select a category</span>
+            </div>
+
+            <!-- Price -->
+            <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" id="productPrice" name="price" placeholder="Enter Price" step="0.01" required>
+                <span class="error-message" id="priceError">Please enter a valid price</span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label>Product Description</label>
+                <textarea id="productDescription" name="description" placeholder="Describe the product..." required></textarea>
+                <span class="error-message" id="descError">Description must be at least 10 characters</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-buttons">
+                <button type="button" class="cancel-btn">Cancel</button>
+                <button type="submit" class="add-btn">Add Product</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('addProductForm');
+        const imageInput = document.getElementById('productImage');
+        const imagePreview = document.getElementById('imagePreview');
+        const cancelBtn = document.querySelector('.cancel-btn');
+        const nameInput = document.getElementById('productName');
+        const categoryInput = document.getElementById('productCategory');
+        const priceInput = document.getElementById('productPrice');
+        const descInput = document.getElementById('productDescription');
+        const nameError = document.getElementById('nameError');
+        const categoryError = document.getElementById('categoryError');
+        const priceError = document.getElementById('priceError');
+        const descError = document.getElementById('descError');
+
+        // Image Preview
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    imagePreview.src = reader.result;
+                    imagePreview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form Validation and Submission
+        form.addEventListener('submit', (e) => {
+            let isValid = true;
+
+            // Reset errors
+            nameError.style.display = 'none';
+            categoryError.style.display = 'none';
+            priceError.style.display = 'none';
+            descError.style.display = 'none';
+
+            // Validate inputs
+            if (!nameInput.value.trim()) {
+                nameError.style.display = 'block';
+                isValid = false;
+            }
+            if (!categoryInput.value) {
+                categoryError.style.display = 'block';
+                isValid = false;
+            }
+            if (!priceInput.value || priceInput.value <= 0) {
+                priceError.style.display = 'block';
+                isValid = false;
+            }
+            if (descInput.value.length < 10) {
+                descError.style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) {
+                e.preventDefault(); // Prevent form submission if validation fails
+            }
+            // If validation passes, form will submit to Django backend
+        });
+
+        // Cancel Button
+        cancelBtn.addEventListener('click', () => {
+            form.reset();
+            imagePreview.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
